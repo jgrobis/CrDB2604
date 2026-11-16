@@ -26,16 +26,14 @@ foreach($p in $paths){
     if ($p -match '(^|/)(\.git|\.vs|bin|obj|build|logs|test-data|test-output|dist|Sqlite)(/|$)|\.(pfx|pdb|dll|exe|db3|dbc|lmc|cpd|ini|log)$') {throw "Local data or binary in source list: $p"}
     if(-not (Test-Path -LiteralPath (Join-Path $root $p) -PathType Leaf)){throw "Missing source file: $p"}
 }
-$sqlite=Join-Path $root 'CreateDxDatabook/Sqlite/netFx40/1.0.66/x64/System.Data.SQLite.dll'
-if ((Get-FileHash -LiteralPath $sqlite).Hash -ne '9866DCEB181852EAB3735AFEEBBAC1EA7810857201319C2C5A2AF4667EAA8D45') {throw 'Unexpected SHA-256 for the inherited upstream SQLite binary'}
-if($Staged) {
-    $stagedNames=@(& git -C $root -c core.quotepath=false diff --cached --name-only --no-renames)
-    if($LASTEXITCODE){throw 'Unable to inspect Git index'}
-    $unexpected=@($stagedNames | Where-Object {$_ -notin $paths})
-    if($unexpected.Count){throw ('Unlisted files in index: '+($unexpected -join ', '))}
-    $missing=@(foreach($p in $paths){& git -C $root ls-files --error-unmatch -- $p 2>$null | Out-Null; if($LASTEXITCODE){$p}})
-    if($missing.Count){throw ('Required files not in index: '+($missing -join ', '))}
-    & git -C $root diff --quiet -- @paths
-    if($LASTEXITCODE){throw 'Working tree files do not match the reviewed index'}
+if ($Staged) {
+    $top = & git -C $root rev-parse --show-toplevel
+    if ($LASTEXITCODE -or [IO.Path]::GetFullPath($top) -ne [IO.Path]::GetFullPath($root)) { throw 'Expected a Git worktree at the source root.' }
+    $indexed = @(& git -C $root -c core.quotepath=false ls-files --cached)
+    if ($LASTEXITCODE) { throw 'Unable to inspect Git index.' }
+    $delta = @(Compare-Object -CaseSensitive ($paths | Sort-Object) ($indexed | Sort-Object))
+    if ($delta.Count) { throw ('Git index differs from the source allowlist: ' + (($delta | ForEach-Object InputObject) -join ', ')) }
+    & git -C $root diff --quiet --
+    if ($LASTEXITCODE) { throw 'Working tree files do not match the reviewed index.' }
 }
-Write-Host ("Validated {0} source paths and upstream x64 SQLite." -f $paths.Count)
+Write-Host ("Validated {0} source paths." -f $paths.Count)

@@ -3,14 +3,14 @@
 param([string]$SddHome = 'C:\SiemensEDA\XENTP2604\SDD_HOME')
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
-$stem = 'CreateDxDatabook-Xpedition2604-v26.4.0-win-x64'
+$stem = 'CreateDxDatabook-Xpedition2604-v26.4.1-win-x64'
 $bin = Join-Path $root 'bin\XENTP2604'
 $dist = Join-Path $root 'dist'
 & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "$root\build.ps1" -SddHome $SddHome
 if ($LASTEXITCODE) { throw 'Build failed: package not generated.' }
 foreach ($file in 'CreateDxDatabook.exe','DxDbClass151.dll') {
     $product = Get-Item -LiteralPath (Join-Path $bin $file)
-    if ($product.VersionInfo.FileVersion -ne '26.4.0.0') { throw "Unexpected file version: $file" }
+    if ($product.VersionInfo.FileVersion -ne '26.4.1.0') { throw "Unexpected file version: $file" }
 }
 $assets = [ordered]@{}
 foreach ($name in 'CreateDxDatabook.exe','CreateDxDatabook.exe.config','DxDbClass151.dll','System.Data.SQLite.dll') {

@@ -1,19 +1,17 @@
-# CreateDxDatabook for Xpedition 2604 (Windows x64)
+# CreateDxDatabook · Xpedition 2604 (Windows x64)
 
-Unofficial port of MGC-CrDB/CrDB for **Xpedition 2604 / COM 151**. The 2604 project builds from the solution under `src/`. The original project and release archives are kept below for reference.
+Unofficial port of [MGC-CrDB/CrDB](https://github.com/MGC-CrDB/CrDB) for Siemens Xpedition **2604 / COM 151**. Generates a SQLite parts database (.db3) and a Databook configuration (.dbc) from a central library (.lmc).
 
-- [Run the GUI or export in batch mode](release-docs/START-HERE.md)
-- [Changes in v26.4.0](release-docs/RELEASE-NOTES.md)
-- [Build, package and publish from a fork](release-docs/FORK-RELEASE.md)
+**Download the compiled Windows program:** [Releases](https://github.com/jgrobis/CrDB2604/releases). Choose `CreateDxDatabook-Xpedition2604-v26.4.1-win-x64.zip`, not GitHub's automatic “Source code” download. Unzip all five files together. You need a licensed installation of Xpedition 2604 x64 and .NET Framework 4.8.
 
-## Original project
-Repository for the CreateDesignerDatabook Utility
+**Build it yourself:** the [Visual Basic solution](src/CreateDxDatabook_XENTP2604.sln) and build scripts in this branch target 2604 only. From a 64-bit Windows PowerShell, run:
 
-It used to be CreateDxDatabook (and is still called by that name in the Mentor/Siemens EDA Automation and Scripting Community) 
-The DxDatabook Addin for Designer (the schematic capture tool for the Xpedition/PadsPro/Netlist flows) is now called Databook, 
-so the utility should rightly be called CrDatabook or CrDB 
-Anyway - Here is the link to the Automation and Scripting Commnuty, where you can see more about the details about the utility : 
-https://community.sw.siemens.com/s/question/0D54O00006eo76FSAQ/createdxdatabook-utility-overview
+~~~powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
+~~~
 
+The first build needs internet access for the .NET reference assemblies and the pinned x64 SQLite dependency. The Siemens COM type libraries come from your installed Xpedition 2604. No installation of Xpedition 2409 is needed. EXE, DLL, user libraries and output databases are not stored in the source tree.
 
-
+- [Run the GUI or export in batch (Polski)](release-docs/START-HERE.md)
+- [What changed in v26.4.1](release-docs/RELEASE-NOTES.md)
+- [Package a release](release-docs/FORK-RELEASE.md)

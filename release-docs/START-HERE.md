@@ -1,6 +1,6 @@
 # CreateDxDatabook dla Xpedition 2604 (Windows x64)
 
-**Wersja wydania: v26.4.0** (dla Xpedition 2604).
+**Wersja wydania: v26.4.1** (dla Xpedition 2604).
 
 Nieoficjalna adaptacja narzędzia [MGC-CrDB/CrDB](https://github.com/MGC-CrDB/CrDB). Wymaga działającej instalacji i licencji Siemens Xpedition 2604, zarejestrowanych komponentów automatyzacji x64 oraz .NET Framework 4.8. Możesz pozostawić 2409 na tym samym komputerze.
 
