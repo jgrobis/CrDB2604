@@ -1,0 +1,18 @@
+/build/
+/bin/
+/logs/
+/test-data/
+/test-output/
+/CreateDxDatabook_XENTP2604/
+/src/**/bin/
+/src/**/obj/
+
+# Local-only release preparation, extracted upstream dependencies, and IDE metadata
+/src/.vs/
+/src/Sqlite/
+/src/**/*.vbproj.user
+/src/**/*.pfx
+/src/**/*.sav.vb
+/src/DxDbClass/SqlSvr/
+/dist/
+/release-out/

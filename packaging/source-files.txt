@@ -1,0 +1,67 @@
+.gitignore
+README.md
+build.ps1
+packaging/source-files.txt
+release-docs/FORK-RELEASE.md
+release-docs/RELEASE-NOTES.md
+release-docs/START-HERE.md
+run.ps1
+src/CreateDxDatabook/Classes/AppArgs.vb
+src/CreateDxDatabook/Classes/Batch2604.vb
+src/CreateDxDatabook/Classes/RegDAO.vb
+src/CreateDxDatabook/Classes/Time.vb
+src/CreateDxDatabook/CreateDxDatabook_XENTP2604.vbproj
+src/CreateDxDatabook/Forms/AboutScreen.designer.vb
+src/CreateDxDatabook/Forms/AboutScreen.resx
+src/CreateDxDatabook/Forms/AboutScreen.vb
+src/CreateDxDatabook/Forms/MainWindow.designer.vb
+src/CreateDxDatabook/Forms/MainWindow.resx
+src/CreateDxDatabook/Forms/MainWindow.vb
+src/CreateDxDatabook/Forms/Transcript.designer.vb
+src/CreateDxDatabook/Forms/Transcript.resx
+src/CreateDxDatabook/Forms/Transcript.vb
+src/CreateDxDatabook/My Project/Application.Designer.vb
+src/CreateDxDatabook/My Project/Application.myapp
+src/CreateDxDatabook/My Project/ApplicationEvents.vb
+src/CreateDxDatabook/My Project/AssemblyInfo.vb
+src/CreateDxDatabook/My Project/Resources.Designer.vb
+src/CreateDxDatabook/My Project/Resources.resx
+src/CreateDxDatabook/My Project/Settings.Designer.vb
+src/CreateDxDatabook/My Project/Settings.settings
+src/CreateDxDatabook/My Project/app.manifest
+src/CreateDxDatabook/Resources/dxparts.ico
+src/CreateDxDatabook/app.config
+src/CreateDxDatabook/databook.ico
+src/CreateDxDatabook_XENTP2604.sln
+src/DxDbClass/Base/BaseClass.vb
+src/DxDbClass/Base/DxDbCore.vb
+src/DxDbClass/Base/Utils.vb
+src/DxDbClass/Base/XmlCfg.vb
+src/DxDbClass/Database/SqliteADO.vb
+src/DxDbClass/Dbc/Dbc.vb
+src/DxDbClass/Dbc/XmlFunc.vb
+src/DxDbClass/DxDbClass_XENTP2604.vbproj
+src/DxDbClass/Forms/DialogToolCfg.designer.vb
+src/DxDbClass/Forms/DialogToolCfg.resx
+src/DxDbClass/Forms/DialogToolCfg.vb
+src/DxDbClass/Forms/DlgDbcCfg.Designer.vb
+src/DxDbClass/Forms/DlgDbcCfg.resx
+src/DxDbClass/Forms/DlgDbcCfg.vb
+src/DxDbClass/Libr/LibVxApp.vb
+src/DxDbClass/Libr/SddVxEnv.vb
+src/DxDbClass/Libr/frmSelectApp.designer.vb
+src/DxDbClass/Libr/frmSelectApp.resx
+src/DxDbClass/Libr/frmSelectApp.vb
+src/DxDbClass/My Project/Application.Designer.vb
+src/DxDbClass/My Project/Application.myapp
+src/DxDbClass/My Project/AssemblyInfo.vb
+src/DxDbClass/My Project/Resources.Designer.vb
+src/DxDbClass/My Project/Resources.resx
+src/DxDbClass/My Project/Settings.Designer.vb
+src/DxDbClass/My Project/Settings.settings
+src/DxDbClass/Pdb/Pdb.vb
+src/DxDbClass/Pdb/PdbPrtn.vb
+src/DxDbClass/Pdb/SideFileDB.vb
+tools/CheckReleaseSource.ps1
+tools/Import2604.ps1
+tools/PackRelease.ps1
