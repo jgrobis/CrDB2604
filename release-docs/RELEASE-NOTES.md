@@ -1,15 +1,11 @@
-# CreateDxDatabook dla Siemens Xpedition 2604 · Windows x64
+# CreateDxDatabook v26.4.2 for Xpedition 2604 (Windows x64)
 
-**Wersja wydania: v26.4.1** (dla Xpedition 2604).
+The [quick-start guide](https://github.com/jgrobis/CrDB2604/blob/v26.4.2/release-docs/START-HERE.md), release notes, and maintainer instructions are now in English. The quick-start guide is also included in the Windows ZIP. The examples use generic paths you can replace with your own.
 
-Nieoficjalna adaptacja [CreateDxDatabook](https://github.com/MGC-CrDB/CrDB). Ten wariant jawnie wybiera **XENTP2604 / win64 / COM 151**. Może pracować na komputerze z zainstalowaną równolegle wersją 2409; nie wymaga globalnego przełączania środowiska.
+The Help menu describes the SQLite export options and uses generic examples. The obsolete Access DAO registry repair command has been removed.
 
-- Odczyt PDB korzysta z wersjonowanego Parts Editor 151. Program sprawdza release i ścieżki serwerów COM przed otwarciem biblioteki.
-- Zachowano eksport części, właściwości, symboli i pinów do DB3 oraz konfiguracji DBC. Wspólnie wygenerowane pliki DB3/DBC można przenosić razem.
-- **GUI pozostaje otwarte** po eksporcie. **Tryb `--batch` kończy się automatycznie**, zapisuje log i zwraca kod 0/1.
+**Download:** choose `CreateDxDatabook-Xpedition2604-v26.4.2-win-x64.zip` and extract all its files together. GitHub's automatic “Source code” downloads are for building the program yourself. The Windows package requires .NET Framework 4.8 and a licensed installation of Siemens Xpedition 2604 with x64 automation registered.
 
-**Układ wydania:** w zakładce Code są tylko źródła i narzędzia do budowy wariantu 2604. Gotowy program dla Windows x64 udostępniany jest oddzielnie jako ZIP w Releases. Do kompilacji nie trzeba zachowywać katalogów wcześniejszych wydań.
+This unofficial port selects **Xpedition 2604 / COM 151** explicitly. The GUI stays open after an export. For unattended runs, `--batch` writes the SQLite database, DBC configuration, and log, then exits with code 0 on success or 1 on failure.
 
-**Weryfikacja:** eksport na kopii biblioteki odczytał 23 partycje i 505 części. Wariant z symbolami i pinami zapisał 537 rekordów symboli. Sprawdzono GUI, pracę przy ustawieniach 2409, integralność SQLite oraz odwołania do tabel i pól w DBC. Nie wykonywano ręcznego importu DBC w otwartym Designerze.
-
-**Instalacja:** pobierz ZIP dla Windows x64, rozpakuj wszystkie pliki razem i przeczytaj `START-HERE.md`. Wymagane są .NET Framework 4.8 i działająca instalacja/licencja Xpedition 2604 z zarejestrowanymi komponentami COM x64.
+The 2604 exporter has been tested on a copy of a central library, including selection of 2604 when 2409 environment variables are present. Checks covered GUI operation, SQLite integrity, and DBC table and field mappings. Opening the DBC interactively in Designer was not part of those tests.

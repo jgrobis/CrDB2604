@@ -84,7 +84,7 @@ Namespace DxDB
                 End If
 
                 If Not My.Computer.FileSystem.DirectoryExists(SqlDir) Then
-                    Me.DxDbTranscriptMsg("Specified MDB Output Folder does NOT exist.", 0, MsgType.Err)
+                    Me.DxDbTranscriptMsg("The specified SQLite output folder does not exist.", 0, MsgType.Err)
                     Me.DxDbTranscriptMsg(SqlDir)
                     Me.DxDbTranscriptMsg("")
                     Return False

@@ -30,7 +30,6 @@ Public Class MainWindow
     Private WithEvents BgWorker As BackgroundWorker
 
     Private WithEvents DXDB As DxDbCore
-    Private WithEvents Dao360 As RegDAO
 
     Private StartTime As Date
     Private LogFile As String
@@ -177,10 +176,6 @@ Public Class MainWindow
 
         Me.SetStatusbarMessage(My.Application.Info.Title + " " + RevStr + " - SDD Release: " + Me.SddActRel.Name + " - SDD Platform: " + Me.SddActRel.Platform.ToString)
 
-        '-con -lmc D:\Users\Thomass\MyDocuments\Programming\VBasic\EEtoolsVX\xCreateDxDatabook\TestData\Library\Library.lmc
-        '     -psf D:\Users\Thomass\MyDocuments\Programming\VBasic\EEtoolsVX\xCreateDxDatabook\TestData\AdditionalProps.psf
-        '     -mdb D:\Temp
-
         ' enable/disable other MDB dir file control
         Me.ToggleMdbDirControls(Me.DXDB.CfgXml.GetIniUseOtherMdbDir())
 
@@ -321,10 +316,6 @@ Public Class MainWindow
         Me.PrintHelpOtherMdbDir()
     End Sub
 
-    Private Sub ItemDAO360Error_Click(sender As Object, e As System.EventArgs) Handles ItemDAO360Error.Click
-        Me.PrintDAO360Error()
-    End Sub
-
     Private Sub ItemPropSideFile_Click(sender As Object, e As System.EventArgs) Handles ItemPropSideFile.Click
         Me.PrintHelpPropSideFile()
     End Sub
@@ -333,22 +324,11 @@ Public Class MainWindow
         Me.GetMsInfo32()
     End Sub
 
-    Private Sub ItemChkDao360_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ItemChkDao360.Click
-        Me.ClearTranscript()
-        Me.Dao360 = New RegDAO
-        Me.Dao360.ChkDAO360DLL()
-        Me.Dao360 = Nothing
-    End Sub
 #End Region
 
 #Region "Eval Argument Methods"
     Protected Function EvaluateCmdLineArguments(ByVal Title As String, ByVal TextColor As System.ConsoleColor) As Boolean
         Dim Args As New AppArgs
-
-        ' -con -lmc <LmcFile> -prp <PropertyFile> -dbc
-        ' -con -lmc D:\Users\Thomass\MyDocuments\Programming\VBasic\EEtoolsVX\xCreateDxDatabook\TestData\Library\Library.lmc
-        '      -psf D:\Users\Thomass\MyDocuments\Programming\VBasic\EEtoolsVX\xCreateDxDatabook\TestData\AdditionalProps.psf
-        '      -out D:\Users\Thomass\MyDocuments\Programming\VBasic\EEtoolsVX\xCreateDxDatabook\TestData
 
         For Each Arg As CmdArg In Args.Argv
             Select Case Arg.Name
@@ -621,7 +601,7 @@ Public Class MainWindow
     End Function
 
     Protected Sub GetMsInfo32()
-        Dim TmpFile As String, MsInfo32 As String = ""
+        Dim MsInfo32 As String = ""
         Dim RegKey As Microsoft.Win32.RegistryKey
         Dim MyProcess As New Process
 
@@ -639,10 +619,6 @@ Public Class MainWindow
                 Throw New Exception("Registry Path value not found")
             End If
 
-            ' run MsInfo32, output the result to C:\TEMP\REPORT.TXT
-            TmpFile = My.Computer.FileSystem.SpecialDirectories.Temp + "\Ms32Info.txt"
-
-            ' assign prog and parameter
             MyProcess.StartInfo.FileName = MsInfo32
             MyProcess.StartInfo.Arguments = ""
 
@@ -687,51 +663,30 @@ Public Class MainWindow
 
     Protected Sub PrintHelpCmdLineArgs()
         Me.ClearTranscript()
+        Me.WriteTranscript("To export and exit automatically, run:")
+        Me.WriteTranscript(My.Application.Info.AssemblyName & ".exe --batch --lmc <library.lmc> --out <folder>", 4)
+        Me.WriteTranscript("The output folder receives a SQLite database (.db3), a Databook configuration (.dbc), and generation.log.")
+        Me.WriteTranscript("Exit code 0 means success. Exit code 1 means the export failed.")
         Me.WriteTranscript("")
-        Me.WriteTranscript("Usage: " + My.Application.Info.AssemblyName + " -lmc <LmcFile> [-con] [-psf <PropertyFile>] [-out <DbOutputFolder>]")
+        Me.WriteTranscript("Optional batch arguments:")
+        Me.WriteTranscript("--symbols includes the symbols table. --cell-pins includes cell pin counts.", 4)
+        Me.WriteTranscript("--allow-duplicates permits duplicate part numbers.", 4)
+        Me.WriteTranscript("--psf <file> imports properties. Use --delimiter <character> to change the default separator (|).", 4)
+        Me.WriteTranscript("--log <file> changes the log destination.", 4)
         Me.WriteTranscript("")
-        Me.WriteTranscript("-lmc <LmcFile> Path to library .lmc file. This argument is mandatory", 10)
+        Me.WriteTranscript("To use the GUI, open the executable without arguments. Select Create/Update DBC File to export a DBC as well.")
+        Me.WriteTranscript("The window stays open after the export.")
         Me.WriteTranscript("")
-        Me.WriteTranscript("-psf <PropertySideFile> Path to additional property ascii file (*.psf).", 10)
-        Me.WriteTranscript("Must be enabled in tool configuration", 30)
-        Me.WriteTranscript("")
-        Me.WriteTranscript("-out <DbOutputFolder> Path to optional Database File output folder.", 10)
-        Me.WriteTranscript("Must be enabled in tool configuration", 30)
-        Me.WriteTranscript("")
-        Me.WriteTranscript("-con Run the tool in a console window. Silent mode if omitted.", 10)
-        Me.WriteTranscript("")
-        Me.WriteTranscript("Use commandline mode ONLY to update the MDB Access database.", 0, Transcript.MsgType.Nte)
-        Me.WriteTranscript("")
-        Me.WriteTranscript("All tool configuration must be done in interactive mode.", 6)
-        Me.WriteTranscript("Excute 'File>Edit Configuration ...' to modify tool configuration.", 6)
-        Me.WriteTranscript("")
-        Me.WriteTranscript("Also create or update Databook configuration (.dbc) has to be done", 6)
-        Me.WriteTranscript("in interactive mode.", 6)
-        Me.WriteTranscript("")
+        Me.WriteTranscript("Legacy command line (uses the GUI settings):")
+        Me.WriteTranscript(My.Application.Info.AssemblyName & ".exe -lmc <library.lmc> [-con] [-psf <file>] [-out <folder>]", 4)
+        Me.WriteTranscript("Enable the corresponding options in File > Edit Configuration before using -psf or -out.", 4)
+        Me.WriteTranscript("The -con option opens a console and waits for a keypress after the export.", 4)
     End Sub
 
     Protected Sub PrintHelpOtherMdbDir()
         Me.ClearTranscript()
-        Me.WriteTranscript("")
-        Me.WriteTranscript("Specify a folder to store the Access MDB File as an alternative")
-        Me.WriteTranscript("to the the default library folder.")
-        Me.WriteTranscript("The specified folder must have write access for all users.")
-        Me.WriteTranscript("")
-    End Sub
-
-    Protected Sub PrintDAO360Error()
-        Me.ClearTranscript()
-        Me.WriteTranscript("")
-        Me.WriteTranscript("If the following Error occures ...")
-        Me.WriteTranscript("")
-        Me.WriteTranscript(">> ERROR!! InvalidCastException")
-        Me.WriteTranscript(">> Unable to cast COM object of type 'System.__ComObject' to interface type 'dao.DBEngine'.")
-        Me.WriteTranscript("")
-        Me.WriteTranscript("This is caused by an invalid Registration of Microsofts DAO360.dll Type Library.")
-        Me.WriteTranscript("")
-        Me.WriteTranscript("This can be fixed by invoking MenuItem 'File > Check DAO360.dll'")
-        Me.WriteTranscript("If this does not solve the Problem you may have no write Permission to the Registry.")
-        Me.WriteTranscript("")
+        Me.WriteTranscript("Choose a writable folder for the SQLite database (.db3).")
+        Me.WriteTranscript("By default the database is saved beside the selected central library (.lmc).")
     End Sub
 
     Protected Sub PrintHelpPropSideFile()
@@ -740,7 +695,7 @@ Public Class MainWindow
         Me.WriteTranscript("Property Side File (*.psf ASCII) Format:")
         Me.WriteTranscript("")
         Me.WriteTranscript("First line defines the property names. The first column defines the matching key.")
-        Me.WriteTranscript("If the matching key name (Proprty Name) is one of the following, the importer")
+        Me.WriteTranscript("If the matching key name (property name) is one of the following, the importer")
         Me.WriteTranscript("looks for a matching 'Part Number' value: 'PARTNO', 'PARTNUMBER', 'PART NUMBER', 'PN'")
         Me.WriteTranscript("")
         Me.WriteTranscript("Any other name of the first column indicates to the importer to look in the part property")
@@ -749,8 +704,8 @@ Public Class MainWindow
         Me.WriteTranscript("Valid column separators are ; @ � # * | or Tab.")
         Me.WriteTranscript("")
         Me.WriteTranscript("Example:")
-        Me.WriteTranscript("Header Line -> PART NUMBER|Prop 1 Name|Prop 2 Name")
-        Me.WriteTranscript("Data Line   -> 6667559|LM2576S-ADJ|Prop 2 Value")
+        Me.WriteTranscript("Header Line -> PART NUMBER|Description|Category")
+        Me.WriteTranscript("Data Line   -> EXAMPLE-001|Example component|Sample")
         Me.WriteTranscript("")
     End Sub
 
@@ -1105,7 +1060,7 @@ Public Class MainWindow
     End Sub
 #End Region
 
-#Region "PartsDb, PropsDb, Dao360 Events"
+#Region "Databook Events"
     Private Sub DxDB_StatusbarMsg(ByVal Msg As String) Handles DXDB.StatusbarMsg
         Me.SetStatusbarMessage(Msg)
     End Sub
@@ -1135,9 +1090,6 @@ Public Class MainWindow
         Me.AddLogMessage(Msg, LeadingSpaces, CType(MsgType, Transcript.MsgType))
     End Sub
 
-    Private Sub Dao_Cfg_Notify(ByVal Msg As String, ByVal LeadingSpaces As Integer, ByVal Type As Transcript.MsgType) Handles Dao360.Notify
-        Me.WriteTranscript(Msg, LeadingSpaces, Type)
-    End Sub
 #End Region
 
 End Class

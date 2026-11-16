@@ -90,7 +90,7 @@ Partial Class DialogToolCfg
         Me.ChkUseOdbcAlias.Name = "ChkUseOdbcAlias"
         Me.ChkUseOdbcAlias.Size = New System.Drawing.Size(136, 17)
         Me.ChkUseOdbcAlias.TabIndex = 1
-        Me.ChkUseOdbcAlias.Text = "Use ODBC Alias (MDB)"
+        Me.ChkUseOdbcAlias.Text = "Use ODBC alias for the DBC"
         Me.ChkUseOdbcAlias.UseVisualStyleBackColor = True
         '
         'CmbOdbcAlias
@@ -141,7 +141,7 @@ Partial Class DialogToolCfg
         Me.ChkUseOtherMdbDir.Name = "ChkUseOtherMdbDir"
         Me.ChkUseOtherMdbDir.Size = New System.Drawing.Size(197, 17)
         Me.ChkUseOtherMdbDir.TabIndex = 20
-        Me.ChkUseOtherMdbDir.Text = "Use alternate MDB Dir (not LMC Dir)"
+        Me.ChkUseOtherMdbDir.Text = "Use a separate database folder"
         Me.ChkUseOtherMdbDir.UseVisualStyleBackColor = True
         '
         'ChkDynamicGui

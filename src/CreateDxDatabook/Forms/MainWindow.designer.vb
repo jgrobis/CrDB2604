@@ -26,16 +26,12 @@ Partial Class MainWindow
         Me.MainMenubar = New System.Windows.Forms.MenuStrip()
         Me.MenuFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.ItemSelLmcFile = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.ItemEditConfig = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ItemChkDao360 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.ItemExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.ItemAbout = New System.Windows.Forms.ToolStripMenuItem()
         Me.ItemCmdLineArgs = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ItemDAO360Error = New System.Windows.Forms.ToolStripMenuItem()
         Me.ItemOtherMdbDir = New System.Windows.Forms.ToolStripMenuItem()
         Me.ItemPropSideFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.ItemSysInfo = New System.Windows.Forms.ToolStripMenuItem()
@@ -104,7 +100,7 @@ Partial Class MainWindow
         '
         'MenuFile
         '
-        Me.MenuFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ItemSelLmcFile, Me.ToolStripSeparator2, Me.ItemEditConfig, Me.ToolStripSeparator1, Me.ItemChkDao360, Me.ToolStripSeparator3, Me.ItemExit})
+        Me.MenuFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ItemSelLmcFile, Me.ItemEditConfig, Me.ToolStripSeparator1, Me.ItemExit})
         Me.MenuFile.Name = "MenuFile"
         Me.MenuFile.Size = New System.Drawing.Size(37, 20)
         Me.MenuFile.Text = "File"
@@ -114,11 +110,6 @@ Partial Class MainWindow
         Me.ItemSelLmcFile.Name = "ItemSelLmcFile"
         Me.ItemSelLmcFile.Size = New System.Drawing.Size(183, 22)
         Me.ItemSelLmcFile.Text = "Select LMC File ..."
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(180, 6)
         '
         'ItemEditConfig
         '
@@ -131,17 +122,6 @@ Partial Class MainWindow
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(180, 6)
         '
-        'ItemChkDao360
-        '
-        Me.ItemChkDao360.Name = "ItemChkDao360"
-        Me.ItemChkDao360.Size = New System.Drawing.Size(183, 22)
-        Me.ItemChkDao360.Text = "Check DAO360.dll"
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(180, 6)
-        '
         'ItemExit
         '
         Me.ItemExit.Name = "ItemExit"
@@ -150,7 +130,7 @@ Partial Class MainWindow
         '
         'MenuHelp
         '
-        Me.MenuHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ItemAbout, Me.ItemCmdLineArgs, Me.ItemDAO360Error, Me.ItemOtherMdbDir, Me.ItemPropSideFile, Me.ItemSysInfo})
+        Me.MenuHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ItemAbout, Me.ItemCmdLineArgs, Me.ItemOtherMdbDir, Me.ItemPropSideFile, Me.ItemSysInfo})
         Me.MenuHelp.Name = "MenuHelp"
         Me.MenuHelp.Size = New System.Drawing.Size(44, 20)
         Me.MenuHelp.Text = "Help"
@@ -165,19 +145,13 @@ Partial Class MainWindow
         '
         Me.ItemCmdLineArgs.Name = "ItemCmdLineArgs"
         Me.ItemCmdLineArgs.Size = New System.Drawing.Size(180, 22)
-        Me.ItemCmdLineArgs.Text = "CommandLine Args"
-        '
-        'ItemDAO360Error
-        '
-        Me.ItemDAO360Error.Name = "ItemDAO360Error"
-        Me.ItemDAO360Error.Size = New System.Drawing.Size(180, 22)
-        Me.ItemDAO360Error.Text = "DAO360 Error"
+        Me.ItemCmdLineArgs.Text = "Command-Line Arguments"
         '
         'ItemOtherMdbDir
         '
         Me.ItemOtherMdbDir.Name = "ItemOtherMdbDir"
         Me.ItemOtherMdbDir.Size = New System.Drawing.Size(180, 22)
-        Me.ItemOtherMdbDir.Text = "MDB Directory"
+        Me.ItemOtherMdbDir.Text = "Database Folder"
         '
         'ItemPropSideFile
         '
@@ -269,7 +243,7 @@ Partial Class MainWindow
         Me.BtnSelMdbDir.Name = "BtnSelMdbDir"
         Me.BtnSelMdbDir.Size = New System.Drawing.Size(95, 21)
         Me.BtnSelMdbDir.TabIndex = 21
-        Me.BtnSelMdbDir.Text = "Select MDB Dir"
+        Me.BtnSelMdbDir.Text = "Select Folder"
         Me.BtnSelMdbDir.UseVisualStyleBackColor = True
         Me.BtnSelMdbDir.Visible = False
         '
@@ -285,11 +259,11 @@ Partial Class MainWindow
         'LblMdbDir
         '
         Me.LblMdbDir.AutoSize = True
-        Me.LblMdbDir.Location = New System.Drawing.Point(25, 68)
+        Me.LblMdbDir.Location = New System.Drawing.Point(5, 68)
         Me.LblMdbDir.Name = "LblMdbDir"
-        Me.LblMdbDir.Size = New System.Drawing.Size(66, 13)
+        Me.LblMdbDir.Size = New System.Drawing.Size(82, 13)
         Me.LblMdbDir.TabIndex = 23
-        Me.LblMdbDir.Text = "MDB Folder:"
+        Me.LblMdbDir.Text = "Database folder:"
         Me.LblMdbDir.Visible = False
         '
         'LblPrpFile
@@ -339,7 +313,7 @@ Partial Class MainWindow
         Me.MinimumSize = New System.Drawing.Size(800, 700)
         Me.Name = "MainWindow"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Create DxDatabook - MDB/SQLite"
+        Me.Text = "Create DxDatabook - SQLite"
         Me.StatusbarMain.ResumeLayout(False)
         Me.StatusbarMain.PerformLayout()
         Me.MainMenubar.ResumeLayout(False)
@@ -365,12 +339,9 @@ Partial Class MainWindow
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents EntryPrpFile As System.Windows.Forms.TextBox
     Friend WithEvents BtnSelPsfFile As System.Windows.Forms.Button
-    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ItemEditConfig As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ChkCrtDbcFile As System.Windows.Forms.CheckBox
     Friend WithEvents BtnLibManager As System.Windows.Forms.Button
-    Friend WithEvents ItemChkDao360 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ItemCmdLineArgs As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TranscriptList As CreateDxDatabook.Transcript
     Friend WithEvents ItemPropSideFile As System.Windows.Forms.ToolStripMenuItem
@@ -380,6 +351,5 @@ Partial Class MainWindow
     Friend WithEvents LblLmcFile As System.Windows.Forms.Label
     Friend WithEvents LblMdbDir As System.Windows.Forms.Label
     Friend WithEvents LblPrpFile As System.Windows.Forms.Label
-    Friend WithEvents ItemDAO360Error As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EventLog1 As EventLog
 End Class

@@ -11,8 +11,6 @@
     <RootNamespace>CreateDxDatabook</RootNamespace>
     <AssemblyName>CreateDxDatabook</AssemblyName>
     <MyType>WindowsForms</MyType>
-    <ManifestCertificateThumbprint>6B3ED2AFC5A31A6726A8A599E9F4C22A77040937</ManifestCertificateThumbprint>
-    <ManifestKeyFile>CreateDxDatabook_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>false</GenerateManifests>
     <SignManifests>false</SignManifests>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -37,7 +35,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>4</ApplicationRevision>
-    <ApplicationVersion>26.4.1.0</ApplicationVersion>
+    <ApplicationVersion>26.4.2.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -79,7 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AppArgs.vb" />
-    <Compile Include="Classes\RegDAO.vb" />
     <Compile Include="Classes\Time.vb" />
     <Compile Include="Forms\AboutScreen.designer.vb">
       <DependentUpon>AboutScreen.vb</DependentUpon>

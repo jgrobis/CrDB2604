@@ -123,20 +123,10 @@ Public Class DialogToolCfg
     End Sub
 
     Private Function GetODBCDrivers() As List(Of String)
-        Dim RegKey As RegistryKey, RegArray As String()
-        Dim ValArray As New List(Of String)
-
-        RegKey = My.Computer.Registry.CurrentUser.OpenSubKey("Software\ODBC\ODBC.INI\ODBC Data Sources", False)
-        RegArray = RegKey.GetValueNames()
-        RegKey.Close()
-
-        If Not IsNothing(RegArray) Then
-            For Each Val As String In RegArray
-                ValArray.Add(Val)
-            Next
-        End If
-
-        Return ValArray
+        Using sources As RegistryKey = My.Computer.Registry.CurrentUser.OpenSubKey("Software\ODBC\ODBC.INI\ODBC Data Sources", False)
+            If sources Is Nothing Then Return New List(Of String)()
+            Return New List(Of String)(sources.GetValueNames())
+        End Using
     End Function
 
     Private Sub SetCheckBoxControl(ByRef CheckBox As CheckBox, Section As Sections, SectionKey As Keys, Optional DefaultValue As Boolean = False)

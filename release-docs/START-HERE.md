@@ -1,38 +1,36 @@
-# CreateDxDatabook dla Xpedition 2604 (Windows x64)
+# Run CreateDxDatabook for Xpedition 2604
 
-**Wersja wydania: v26.4.1** (dla Xpedition 2604).
+**v26.4.2 · Windows x64.** This unofficial build requires .NET Framework 4.8 and a licensed, working installation of Siemens Xpedition 2604 with the x64 automation components registered. Xpedition 2409 can remain installed.
 
-Nieoficjalna adaptacja narzędzia [MGC-CrDB/CrDB](https://github.com/MGC-CrDB/CrDB). Wymaga działającej instalacji i licencji Siemens Xpedition 2604, zarejestrowanych komponentów automatyzacji x64 oraz .NET Framework 4.8. Możesz pozostawić 2409 na tym samym komputerze.
+## Export using the GUI
 
-## Uruchomienie z oknem
+1. Download the `win-x64.zip` asset from [Releases](https://github.com/jgrobis/CrDB2604/releases/latest) and extract it to a writable folder. Keep `CreateDxDatabook.exe.config`, `DxDbClass151.dll`, and `System.Data.SQLite.dll` beside `CreateDxDatabook.exe`.
+2. Open `CreateDxDatabook.exe`, click **Select LMC File**, and choose the `.lmc` file in a working copy of your **complete** central library. The `.lmc` file by itself does not contain all the parts data. The GUI can invalidate the library's existing `.cpd` cache after an export.
+3. Select **Create/Update DBC File** if you want the Databook configuration, then click **Create Database**. If a DBC already exists, the GUI asks what to do with it. The window stays open after the export so you can read the transcript.
 
-1. Rozpakuj cały ZIP do katalogu, w którym możesz zapisywać pliki. Zostaw `CreateDxDatabook.exe.config`, `DxDbClass151.dll` i `System.Data.SQLite.dll` obok programu.
-2. Uruchom `CreateDxDatabook.exe`, wybierz plik `.lmc` z kopii kompletnej biblioteki i zaznacz **Create/Update DBC File**, jeśli chcesz także plik konfiguracyjny. Uruchom generowanie.
-3. Po zakończeniu **okno pozostaje otwarte**: możesz przeczytać komunikaty, wybrać inną bibliotekę lub zamknąć program krzyżykiem. Nie musisz go zamykać, aby użyć wyniku.
+## Export once and exit automatically
 
-## Automatyczne zakończenie po jednym eksporcie
+In PowerShell, open the folder containing the extracted executable. Replace the sample paths below with your library copy and a separate output folder. Use an empty output folder for the first run: subsequent exports can replace files with the same name.
 
-W PowerShell otwórz katalog rozpakowanego programu. Zastąp przykładowe ścieżki własnymi; do pierwszego testu użyj pustego katalogu wynikowego. Ponowne uruchomienie zastępuje poprzednie wyniki o tej samej nazwie.
-
-~~~powershell
-& .\CreateDxDatabook.exe --batch --lmc 'D:\Biblioteki\Kopia\Library.lmc' --out 'D:\Wyniki\Databook' | Out-Host
+```powershell
+& .\CreateDxDatabook.exe --batch --lmc 'D:\Libraries\Copy\Library.lmc' --out 'D:\Exports\Databook' | Out-Host
 $LASTEXITCODE
-~~~
+```
 
-Ten tryb kończy się sam, bez naciskania klawisza. **0** oznacza powodzenie, **1** błąd. Po udanym eksporcie w katalogu wynikowym znajdziesz `Library.db3`, `Library.dbc` i `generation.log`. W logu sprawdzisz wybrany release i katalog SDD_HOME. Do automatyzacji używaj `--batch`; historyczna opcja `-con` czeka po eksporcie na klawisz.
+Batch mode exits without waiting for a keypress. An exit code of **0** means success; **1** means failure. For the example above, a successful run creates `Library.db3`, `Library.dbc`, and `generation.log` in the output folder. The log identifies the selected release and `SDD_HOME`. To include the separate symbols table or cell pin counts, add `--symbols` or `--cell-pins`.
 
-W Databook w Designerze 2604 wskaż plik **.dbc**. Gdy DB3 i DBC wygenerowano w jednym katalogu, przenoś je razem. Gdy w GUI wybrano osobne katalogi, konfiguracja wskazuje pełną ścieżkę bazy; po jej przeniesieniu wygeneruj DBC ponownie.
+## Use the result
 
-## Pochodzenie komponentów
+Select the exported **.dbc** file in Databook in Xpedition Designer 2604. When DBC and DB3 are generated together, keep them in the same folder if you move them. If you use the GUI to place them in separate folders, the DBC records the full database path; regenerate the configuration if that path changes.
 
-Podstawą jest narzędzie CreateDxDatabook dla XENTP2409 z repozytorium MGC-CrDB/CrDB. Zachowano noty autorów w aplikacji. Wydanie nie jest oficjalnym produktem Siemens. Zestaw korzysta z biblioteki System.Data.SQLite x64 z pakietu upstream. Komponenty Xpedition i licencję trzeba zapewnić oddzielnie; pakiet ich nie instaluje ani nie przerejestrowuje.
+## Build from source instead
 
-## Budowanie ze źródeł
+From the repository root, use 64-bit Windows PowerShell:
 
-W katalogu głównym forka, w 64-bitowym Windows PowerShell, uruchom:
-
-~~~powershell
+```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
-~~~
+```
 
-Przy niestandardowej ścieżce instalacji dodaj np. `-SddHome 'D:\SiemensEDA\XENTP2604\SDD_HOME'`. Wynik kompilacji znajduje się w `bin\XENTP2604`. Skrypt jest częścią repozytorium; nie potrzebujesz go do uruchomienia gotowego ZIP.
+For a non-default installation, add `-SddHome 'D:\SiemensEDA\XENTP2604\SDD_HOME'`. The program is written to `bin\XENTP2604`. Building is unnecessary when using the release ZIP.
+
+This build is based on [MGC-CrDB/CrDB](https://github.com/MGC-CrDB/CrDB) and uses the upstream x64 System.Data.SQLite provider. It does not install or re-register Siemens components.

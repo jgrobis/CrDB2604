@@ -1,18 +1,20 @@
-# Przygotowanie wydania
+# Package a Windows release
 
-Pracuj na czystym drzewie źródeł z tego forka. Kompilacja wymaga Windows x64, .NET Framework 4.8 oraz działającej instalacji Xpedition 2604; zależności do pierwszego buildu pobiera build.ps1.
+Use a checkout of the source commit you intend to release. Building requires Windows x64, .NET Framework 4.8, and Xpedition 2604. If the installation uses a non-default location, pass `-SddHome` to the packaging script.
 
-~~~powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\PackRelease.ps1
-Get-Content .\dist\SHA256SUMS.txt
-~~~
+1. From the repository root, run:
 
-Dla niestandardowej instalacji dodaj `-SddHome 'D:\SiemensEDA\XENTP2604\SDD_HOME'`. Przetestuj EXE z rozpakowanego ZIP-a na kopii biblioteki. Gotowych plików z dist nie dodawaj do commita.
+   ```powershell
+   powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\PackRelease.ps1
+   Get-Content .\dist\SHA256SUMS.txt
+   ```
 
-W Releases dla właściwego tagu dołącz **ZIP programu dla win-x64** i **SHA256SUMS.txt**. [Opis wydania](RELEASE-NOTES.md) można podać w `--notes-file`. Przykład dla utrzymującego fork, po wysłaniu commita i tagu:
+2. Extract the ZIP from `dist\` into a separate folder and run the extracted executable against a copy of a complete central library. Check its exit code, the generated DB3 and DBC, and the generation log. To verify the ZIP itself, compare `Get-FileHash <path-to-zip> -Algorithm SHA256` with the digest in `SHA256SUMS.txt`.
 
-~~~powershell
-gh release create v26.4.1 .\dist\CreateDxDatabook-Xpedition2604-v26.4.1-win-x64.zip .\dist\SHA256SUMS.txt --repo jgrobis/CrDB2604 --verify-tag --title "CreateDxDatabook v26.4.1 for Xpedition 2604 (Windows x64, unofficial)" --notes-file .\release-docs\RELEASE-NOTES.md
-~~~
+3. Push the tested source commit and its tag to your fork. Attach **the Windows ZIP** and **SHA256SUMS.txt** to a release for that tag. Keep `dist\` out of the source commit. For example, after pushing tag `v26.4.2` on this fork:
 
-GitHub dodaje także archiwa źródeł z tagu automatycznie. Starsze pliki można odnaleźć w historii projektu macierzystego; nie są potrzebne w bieżącym drzewie forka.
+   ```powershell
+   gh release create v26.4.2 .\dist\CreateDxDatabook-Xpedition2604-v26.4.2-win-x64.zip .\dist\SHA256SUMS.txt --repo jgrobis/CrDB2604 --verify-tag --draft --title "CreateDxDatabook v26.4.2 for Xpedition 2604 (Windows x64, unofficial)" --notes-file .\release-docs\RELEASE-NOTES.md
+   ```
+
+4. Review the assets and [release notes](RELEASE-NOTES.md) in the draft, then publish it. GitHub provides separate source archives automatically. If publishing from another fork, replace the repository name in the example with your own.

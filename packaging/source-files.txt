@@ -8,7 +8,6 @@ release-docs/START-HERE.md
 run.ps1
 src/CreateDxDatabook/Classes/AppArgs.vb
 src/CreateDxDatabook/Classes/Batch2604.vb
-src/CreateDxDatabook/Classes/RegDAO.vb
 src/CreateDxDatabook/Classes/Time.vb
 src/CreateDxDatabook/CreateDxDatabook_XENTP2604.vbproj
 src/CreateDxDatabook/Forms/AboutScreen.designer.vb
